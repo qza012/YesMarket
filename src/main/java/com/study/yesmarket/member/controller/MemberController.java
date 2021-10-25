@@ -23,8 +23,12 @@ public class MemberController {
     }
 
     @GetMapping("/nicknames/{nickname}/duplicate")
-    public ResponseEntity<Void> isDuplicateNickname(@PathVariable String nickname) {
-        memberService.isDuplicateNickname(nickname);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Boolean> isDuplicateNickname(@PathVariable String nickname) {
+        return ResponseEntity.ok(memberService.isDuplicateNickname(nickname));
+    }
+
+    @GetMapping("/ids/{id}/duplicate")
+    public ResponseEntity<Boolean> isDuplicateId(@PathVariable String id) {
+        return ResponseEntity.ok(memberService.isDuplicateId(id));
     }
 }

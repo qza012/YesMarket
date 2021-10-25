@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    /*
-    런타임 에러
+    /**
+     * 런타임 에러
+     * @param e RuntimeError
+     * @return ResponseEntity
      */
-    @ExceptionHandler()
+    @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<String> handleBusinessException(BusinessException e) {
-        log.error("handleBusinessException", e);
+        log.error("handleBusinessException" ,e);
         BusinessErrorCode errorCode = e.getErrorCode();
         return new ResponseEntity<>(errorCode.getMessage(), errorCode.getStatus());
     }

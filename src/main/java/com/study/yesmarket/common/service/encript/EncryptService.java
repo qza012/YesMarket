@@ -4,5 +4,5 @@ public interface EncryptService {
 
     String encrypt(String plainText);
 
-    boolean isMatch(String rawText, String hashedText);
+    boolean isMatch(String rawText, String encryptedText);
 }

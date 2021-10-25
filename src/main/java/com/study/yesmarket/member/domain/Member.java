@@ -2,6 +2,7 @@ package com.study.yesmarket.member.domain;
 
 
 import com.study.yesmarket.common.domain.BaseEntity;
+import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,14 @@ public class Member extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.nickname = nickname;
+    }
+
+    @Builder
+    public Member(JoinRequest joinRequest, String encryptedPassword) {
+        this.memberId = joinRequest.getId();
+        this.password = encryptedPassword;
+        this.phoneNumber = joinRequest.getPhoneNumber();
+        this.email = joinRequest.getEmail();
+        this.nickname = joinRequest.getNickname();
     }
 }

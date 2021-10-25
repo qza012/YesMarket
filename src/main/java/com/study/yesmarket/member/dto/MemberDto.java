@@ -1,11 +1,13 @@
 package com.study.yesmarket.member.dto;
 
 import com.study.yesmarket.member.domain.Member;
+import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
 public class MemberDto {
 
+    @Getter
     public static class JoinRequest {
 
         @NotBlank(message = "아이디를 입력해주세요")

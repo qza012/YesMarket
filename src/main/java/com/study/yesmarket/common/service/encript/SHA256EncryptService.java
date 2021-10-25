@@ -1,11 +1,13 @@
 package com.study.yesmarket.common.service.encript;
 
+import org.springframework.stereotype.Service;
+
 import java.security.MessageDigest;
 
 /**
  * SHA-256 암호화
  */
-
+@Service
 public class SHA256EncryptService implements EncryptService{
 
     @Override
@@ -27,7 +29,7 @@ public class SHA256EncryptService implements EncryptService{
     }
 
     @Override
-    public boolean isMatch(String rawText, String hashedText) {
-        return this.encrypt(rawText).equals(hashedText);
+    public boolean isMatch(String rawText, String encryptedText) {
+        return this.encrypt(rawText).equals(encryptedText);
     }
 }

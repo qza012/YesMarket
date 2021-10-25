@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 
 public enum MemberErrorCode implements BusinessErrorCode {
 
-    DUPLICATE_NICKNAME(HttpStatus.BAD_REQUEST, "중복된 닉네임입니다.");
+    DUPLICATE_NICKNAME(HttpStatus.BAD_REQUEST, "중복된 닉네임이 있습니다."),
+    DUPLICATE_ID(HttpStatus.BAD_REQUEST, "중복된 아이디가 있습니다.")
+    ;
 
     private HttpStatus status;
     private String message;
