@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * BCrypt 암호화
  */
-@Service
-public class BcryptEncryptService implements EncryptService{
+@Service("BCrypt")
+public class BCryptEncryptService implements EncryptService{
 
     @Override
     public String encrypt(String plainText) {

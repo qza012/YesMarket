@@ -7,6 +7,7 @@ import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
 import com.study.yesmarket.member.exception.DuplicateIdException;
 import com.study.yesmarket.member.exception.DuplicateNicknameException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MemberService {
 
+    @Qualifier("BCrypt")
     private final EncryptService encryptService;
     private final MemberRepository memberRepository;
 

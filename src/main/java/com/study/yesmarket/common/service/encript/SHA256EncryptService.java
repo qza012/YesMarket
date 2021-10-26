@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 /**
  * SHA-256 암호화
  */
-@Service
+@Service("SHA256")
 public class SHA256EncryptService implements EncryptService{
 
     @Override
