@@ -29,8 +29,9 @@ public class GlobalExceptionHandler {
      * @param e validation error
      * @return
      */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.error("MethodArgumentNotValidException : ", e.getFieldError().getDefaultMessage());
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        log.error("MethodArgumentNotValidException : {}", e.getFieldError().getDefaultMessage());
+        return new ResponseEntity<>(e.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
     }
 }

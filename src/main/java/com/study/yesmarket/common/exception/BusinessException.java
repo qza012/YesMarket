@@ -4,7 +4,7 @@ import com.study.yesmarket.common.exception.errorcode.BusinessErrorCode;
 
 public class BusinessException extends RuntimeException{
 
-    private BusinessErrorCode errorCode;
+    private final BusinessErrorCode errorCode;
 
     public BusinessException(BusinessErrorCode code) {
         super(code.getMessage());
