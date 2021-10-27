@@ -3,7 +3,9 @@ package com.study.yesmarket.common.exception.handler;
 import com.study.yesmarket.common.exception.BusinessException;
 import com.study.yesmarket.common.exception.errorcode.BusinessErrorCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -21,5 +23,14 @@ public class GlobalExceptionHandler {
         log.error("handleBusinessException" ,e);
         BusinessErrorCode errorCode = e.getErrorCode();
         return new ResponseEntity<>(errorCode.getMessage(), errorCode.getStatus());
+    }
+
+    /**
+     * @param e validation error
+     * @return
+     */
+    protected ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException : ", e.getFieldError().getDefaultMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

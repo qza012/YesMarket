@@ -16,9 +16,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
+    open-in-view: false
     properties:
-      show_sql: true
-      format_sql: true
+      hibernate:
+        format_sql = true
+
 
 ---
 spring:
