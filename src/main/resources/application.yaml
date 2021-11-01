@@ -2,38 +2,3 @@ spring:
   profiles:
     active: dev
 
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-  datasource:
-    jdbc-url: jdbc:mysql://localhost:3306/yes_market?serverTimezone=UTC&characterEncoding=utf8&useSSL=false
-    username: root
-    password: root
-
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql = true
-
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-#  datasource:
-#    url:
-#    username:
-#    password:
-
-  jpa:
-    hibernate:
-      ddl-auto: none

@@ -1,6 +1,7 @@
 package com.study.yesmarket.member.dto;
 
 import com.study.yesmarket.member.domain.Member;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -24,6 +25,15 @@ public class MemberDto {
 
         @NotBlank(message = "닉네임을 입력해주세요.")
         private String nickname;
+
+        @Builder
+        public JoinRequest(String id, String password, String phoneNumber, String email, String nickname) {
+            this.id = id;
+            this.password = password;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.nickname = nickname;
+        }
 
         public Member toEntity() {
             return Member.builder()
