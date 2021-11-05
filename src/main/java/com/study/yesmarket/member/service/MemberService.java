@@ -3,6 +3,8 @@ package com.study.yesmarket.member.service;
 import com.study.yesmarket.common.service.encript.EncryptService;
 import com.study.yesmarket.member.domain.Member;
 import com.study.yesmarket.member.domain.MemberRepository;
+import com.study.yesmarket.member.dto.MemberDto.DuplicateIdResponse;
+import com.study.yesmarket.member.dto.MemberDto.DuplicateNicknameResponse;
 import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
 import com.study.yesmarket.member.exception.DuplicateIdException;
 import com.study.yesmarket.member.exception.DuplicateNicknameException;
@@ -21,11 +23,11 @@ public class MemberService {
 
     @Transactional
     public void join(JoinRequest joinRequest) {
-        if (this.isDuplicateId(joinRequest.getId())) {
+        if (this.isDuplicateId(joinRequest.getId()).isDuplicate()) {
             throw new DuplicateIdException();
         }
 
-        if (this.isDuplicateId(joinRequest.getId())) {
+        if (this.isDuplicateNickname(joinRequest.getNickname()).isDuplicate()) {
             throw new DuplicateNicknameException();
         }
 
@@ -35,12 +37,12 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public boolean isDuplicateNickname(String nickname) {
-        return memberRepository.existsByNickname(nickname);
+    public DuplicateNicknameResponse isDuplicateNickname(String nickname) {
+        return new DuplicateNicknameResponse(memberRepository.existsByNickname(nickname));
     }
 
     @Transactional(readOnly = true)
-    public boolean isDuplicateId(String id) {
-        return memberRepository.existsById(id);
+    public DuplicateIdResponse isDuplicateId(String id) {
+        return new DuplicateIdResponse(memberRepository.existsById(id));
     }
 }

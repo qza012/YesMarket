@@ -1,6 +1,8 @@
 package com.study.yesmarket.member.controller;
 
-import com.study.yesmarket.member.dto.MemberDto;
+import com.study.yesmarket.member.dto.MemberDto.DuplicateIdResponse;
+import com.study.yesmarket.member.dto.MemberDto.DuplicateNicknameResponse;
+import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
 import com.study.yesmarket.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,18 +19,18 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<Void> join(@Valid @RequestBody MemberDto.JoinRequest joinRequest) {
+    public ResponseEntity<Void> join(@Valid @RequestBody JoinRequest joinRequest) {
         memberService.join(joinRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/nicknames/{nickname}/duplicate")
-    public ResponseEntity<Boolean> isDuplicateNickname(@PathVariable String nickname) {
+    public ResponseEntity<DuplicateNicknameResponse> isDuplicateNickname(@PathVariable String nickname) {
         return ResponseEntity.ok(memberService.isDuplicateNickname(nickname));
     }
 
     @GetMapping("/ids/{id}/duplicate")
-    public ResponseEntity<Boolean> isDuplicateId(@PathVariable String id) {
+    public ResponseEntity<DuplicateIdResponse> isDuplicateId(@PathVariable String id) {
         return ResponseEntity.ok(memberService.isDuplicateId(id));
     }
 }

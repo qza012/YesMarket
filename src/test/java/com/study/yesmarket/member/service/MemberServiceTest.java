@@ -4,6 +4,8 @@ import com.study.yesmarket.common.service.encript.EncryptService;
 import com.study.yesmarket.member.domain.Member;
 import com.study.yesmarket.member.domain.MemberRepository;
 import com.study.yesmarket.member.dto.MemberDto;
+import com.study.yesmarket.member.dto.MemberDto.DuplicateIdResponse;
+import com.study.yesmarket.member.dto.MemberDto.DuplicateNicknameResponse;
 import com.study.yesmarket.member.exception.DuplicateIdException;
 import com.study.yesmarket.member.exception.DuplicateNicknameException;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,11 +66,12 @@ public class MemberServiceTest {
         given(memberRepository.existsById(any(String.class))).willReturn(true);
 
         // when
-        boolean actual = memberService.isDuplicateId(memberJoinRequest.getId());
+        DuplicateIdResponse actual = memberService.isDuplicateId(memberJoinRequest.getId());
 
         // then
+        assertThat(actual.isDuplicate()).isEqualTo(true);
+
         verify(memberRepository).existsById(any(String.class));
-        assertThat(actual).isTrue();
     }
 
     @Test
@@ -82,17 +85,18 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("중복된 닉에임인지 확인에 성공한다.")
+    @DisplayName("중복된 닉네임인지 확인에 성공한다.")
     public void duplicateNickName() {
         // given
         given(memberRepository.existsByNickname(any(String.class))).willReturn(true);
 
         // when
-        boolean actual = memberService.isDuplicateNickname(memberJoinRequest.getNickname());
+        DuplicateNicknameResponse actual = memberService.isDuplicateNickname(memberJoinRequest.getNickname());
 
         // then
+        assertThat(actual.isDuplicate()).isEqualTo(true);
+
         verify(memberRepository).existsByNickname(any(String.class));
-        assertThat(actual).isTrue();
     }
 
     @Test
