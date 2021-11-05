@@ -45,4 +45,26 @@ public class MemberDto {
                     .build();
         }
     }
+
+    @Getter
+    public static class DuplicateNicknameResponse {
+
+        private boolean duplicate;
+
+        @Builder
+        public DuplicateNicknameResponse(boolean duplicate) {
+            this.duplicate = duplicate;
+        }
+    }
+
+    @Getter
+    public static class DuplicateIdResponse {
+
+        private boolean duplicate;
+
+        @Builder
+        public DuplicateIdResponse(boolean duplicate) {
+            this.duplicate = duplicate;
+        }
+    }
 }
