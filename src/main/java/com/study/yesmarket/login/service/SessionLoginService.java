@@ -9,11 +9,12 @@ import com.study.yesmarket.login.exception.NotMatchedPasswordException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
-@Service
+@Service("sessionLogin")
 public class SessionLoginService implements LoginService{
 
     static final String LOGIN_ID = "LoginId";
@@ -26,6 +27,7 @@ public class SessionLoginService implements LoginService{
     private final HttpSession httpSession;
 
     @Override
+    @Transactional(readOnly = true)
     public void login(LoginRequest loginRequest) {
         LoginUserInfo loginUserInfo = sessionLoginRepository.findById(loginRequest.getId())
                 .orElseThrow(NotMatchedIdException::new);

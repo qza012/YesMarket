@@ -1,7 +1,6 @@
 package com.study.yesmarket.member.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.yesmarket.member.dto.MemberDto;
 import com.study.yesmarket.member.dto.MemberDto.DuplicateIdResponse;
 import com.study.yesmarket.member.dto.MemberDto.DuplicateNicknameResponse;
 import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
@@ -65,8 +64,8 @@ class MemberControllerTest {
     public void joinMember() throws Exception{
         // when
         ResultActions perform = mockMvc.perform(post("/members")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(objectMapper.writeValueAsString(memberJoinRequest)));
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(memberJoinRequest)));
 
         // then
         perform.andExpect(status().isCreated());
