@@ -1,6 +1,7 @@
 package com.study.yesmarket.product.domain;
 
 import com.study.yesmarket.common.domain.BaseEntity;
+import com.study.yesmarket.product.dto.ProductDto.UpdateProductRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,4 +34,9 @@ public class Product extends BaseEntity {
         this.stock = stock;
     }
 
+    public void update(UpdateProductRequest updateProductRequest) {
+        this.name = updateProductRequest.getName();
+        this.price = updateProductRequest.getPrice();
+        this.stock = updateProductRequest.getStock();
+    }
 }
