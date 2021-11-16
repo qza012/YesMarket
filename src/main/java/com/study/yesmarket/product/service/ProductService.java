@@ -4,6 +4,7 @@ import com.study.yesmarket.product.domain.Product;
 import com.study.yesmarket.product.domain.ProductRepository;
 import com.study.yesmarket.product.dto.ProductDto.GetProductResponse;
 import com.study.yesmarket.product.dto.ProductDto.RegistRequest;
+import com.study.yesmarket.product.dto.ProductDto.RegistResponse;
 import com.study.yesmarket.product.dto.ProductDto.UpdateProductRequest;
 import com.study.yesmarket.product.exception.NotFindProductException;
 import com.study.yesmarket.product.mapper.ProductMapper;
@@ -16,11 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductService {
 
     private final ProductRepository productRepository;
+
     private final ProductMapper productMapper;
 
     @Transactional
-    public void registProduct(RegistRequest registRequest) {
-        productRepository.save(productMapper.registRequestToEntity(registRequest));
+    public RegistResponse registProduct(RegistRequest registRequest) {
+        Product request = productMapper.registRequestToEntity(registRequest);
+
+        Product product = productRepository.save(request);
+
+        return productMapper.productToRegistResponse(product);
     }
 
     @Transactional(readOnly = true)

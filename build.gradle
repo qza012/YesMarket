@@ -34,6 +34,7 @@ dependencies {
 
     // object mapping을 위한 mapstruct 의존성 추가.
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    implementation 'org.jetbrains:annotations:20.1.0'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     // lombok과 mapstruct가 제대로 동작하도록 해줌.
