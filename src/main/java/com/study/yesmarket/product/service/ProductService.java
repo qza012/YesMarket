@@ -2,10 +2,7 @@ package com.study.yesmarket.product.service;
 
 import com.study.yesmarket.product.domain.Product;
 import com.study.yesmarket.product.domain.ProductRepository;
-import com.study.yesmarket.product.dto.ProductDto.GetProductResponse;
-import com.study.yesmarket.product.dto.ProductDto.RegisterRequest;
-import com.study.yesmarket.product.dto.ProductDto.RegisterResponse;
-import com.study.yesmarket.product.dto.ProductDto.UpdateProductRequest;
+import com.study.yesmarket.product.dto.ProductDto.*;
 import com.study.yesmarket.product.exception.NotFindProductException;
 import com.study.yesmarket.product.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +35,13 @@ public class ProductService {
     }
 
     @Transactional
-    public void updateProduct(UpdateProductRequest updateProductRequest) {
-        Product product = productRepository.findById(updateProductRequest.getProductId())
+    public UpdateProductResponse updateProduct(int productId, UpdateProductRequest updateProductRequest) {
+        Product product = productRepository.findById(productId)
                 .orElseThrow(NotFindProductException::new);
 
         product.update(updateProductRequest);
+
+        return productMapper.productToUpdateProductResponse(product);
     }
 
     @Transactional

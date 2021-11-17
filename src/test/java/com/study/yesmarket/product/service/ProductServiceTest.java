@@ -19,10 +19,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -128,8 +128,8 @@ class ProductServiceTest {
         @Test
         void findProduct() {
             // given
+            int productId = 1;
             UpdateProductRequest updateProductRequest = UpdateProductRequest.builder()
-                    .productId(1)
                     .name("테스트 상품")
                     .price(1000)
                     .stock(10)
@@ -142,37 +142,38 @@ class ProductServiceTest {
                     .stock(5)
                     .build();
 
-            given(productRepository.findById(updateProductRequest.getProductId()))
+            given(productRepository.findById(productId))
                     .willReturn(Optional.ofNullable(product));
 
             // when
-            productService.updateProduct(updateProductRequest);
+            productService.updateProduct(productId, updateProductRequest);
 
             // then
             assertThat(product.getName()).isEqualTo(updateProductRequest.getName());
             assertThat(product.getPrice()).isEqualTo(updateProductRequest.getPrice());
             assertThat(product.getStock()).isEqualTo(updateProductRequest.getStock());
 
-            verify(productRepository, times(1)).findById(any(Integer.class));
+            verify(productRepository, times(1)).findById(productId);
+            verify(productMapper, times(1)).productToUpdateProductResponse(product);
         }
 
         @DisplayName("요청한 상품이 존재하지 않는다면, 'NotFindProductException' 에러가 발생한다.")
         @Test
         void notFindProduct() {
             // given
+            int productId = 1;
             UpdateProductRequest updateProductRequest = UpdateProductRequest.builder()
-                    .productId(1)
                     .name("테스트 상품")
                     .price(1000)
                     .stock(10)
                     .build();
 
-            given(productRepository.findById(updateProductRequest.getProductId())).willReturn(Optional.empty());
+            given(productRepository.findById(productId)).willReturn(Optional.empty());
 
             // when-then
-            assertThrows(NotFindProductException.class, () -> productService.updateProduct(updateProductRequest));
+            assertThrows(NotFindProductException.class, () -> productService.updateProduct(productId, updateProductRequest));
 
-            verify(productRepository, times(1)).findById(updateProductRequest.getProductId());
+            verify(productRepository, times(1)).findById(productId);
         }
     }
 
@@ -186,6 +187,6 @@ class ProductServiceTest {
         productService.deleteProduct(productId);
 
         // then
-        verify(productRepository, times(1)).deleteById(any(Integer.class));
+        verify(productRepository, times(1)).deleteById(productId);
     }
 }
