@@ -19,6 +19,7 @@ public class MemberService {
 
     @Qualifier("BCrypt")
     private final EncryptService encryptService;
+
     private final MemberRepository memberRepository;
 
     @Transactional

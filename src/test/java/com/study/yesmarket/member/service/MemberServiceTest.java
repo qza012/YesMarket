@@ -71,7 +71,7 @@ public class MemberServiceTest {
         // then
         assertThat(actual.isDuplicate()).isEqualTo(true);
 
-        verify(memberRepository).existsById(any(String.class));
+        verify(memberRepository, times(1)).existsById(any(String.class));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class MemberServiceTest {
         // then
         assertThat(actual.isDuplicate()).isEqualTo(true);
 
-        verify(memberRepository).existsByNickname(any(String.class));
+        verify(memberRepository, times(1)).existsByNickname(any(String.class));
     }
 
     @Test
