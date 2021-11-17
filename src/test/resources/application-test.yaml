@@ -12,8 +12,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-      show-sql: true
-      open-in-view: false
-      properties:
-        hibernate:
-          format_sql = true
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+# 테스트 코드의 response에 utf-8을 적용하기 위함.
+server:
+  servlet:
+    encoding:
+      force-response: true

@@ -4,24 +4,28 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class ProductDto {
 
     @Getter
-    public static class RegistRequest {
+    @EqualsAndHashCode
+    public static class RegisterRequest {
 
         @NotBlank(message = "상품 이름을 입력해주세요")
         private String name;
 
-        @NotBlank(message = "상품 가격을 입력해주세요")
-        private int price;
+        @NotNull(message = "상품 가격을 입력해주세요")
+        private Integer price;
 
-        @NotBlank(message = "상품 수량을 입력해주세요")
-        private int stock;
+        @NotNull(message = "상품 수량을 입력해주세요")
+        @Min(value = 0, message = "최소 수량은 0입니다.")
+        private Integer stock;
 
         @Builder
-        public RegistRequest(String name, int price, int stock) {
+        public RegisterRequest(String name, int price, int stock) {
             this.name = name;
             this.price = price;
             this.stock = stock;
@@ -29,7 +33,8 @@ public class ProductDto {
     }
 
     @Getter
-    public static class RegistResponse {
+    @EqualsAndHashCode
+    public static class RegisterResponse {
 
         private int productId;
         private String name;
@@ -37,7 +42,7 @@ public class ProductDto {
         private int stock;
 
         @Builder
-        public RegistResponse(int productId, String name, int price, int stock) {
+        public RegisterResponse(int productId, String name, int price, int stock) {
             this.productId = productId;
             this.name = name;
             this.price = price;
@@ -46,6 +51,7 @@ public class ProductDto {
     }
 
     @Getter
+    @EqualsAndHashCode
     public static class GetProductResponse {
 
         private int productId;
@@ -63,17 +69,32 @@ public class ProductDto {
     }
 
     @Getter
+    @EqualsAndHashCode
     public static class UpdateProductRequest {
-
-        @NotBlank(message = "상품 Id를 입력해주세요")
-        private int productId;
 
         private String name;
         private int price;
         private int stock;
 
         @Builder
-        public UpdateProductRequest(int productId, String name, int price, int stock) {
+        public UpdateProductRequest(String name, int price, int stock) {
+            this.name = name;
+            this.price = price;
+            this.stock = stock;
+        }
+    }
+
+    @Getter
+    @EqualsAndHashCode
+    public static class UpdateProductResponse {
+
+        private int productId;
+        private String name;
+        private int price;
+        private int stock;
+
+        @Builder
+        public UpdateProductResponse(int productId, String name, int price, int stock) {
             this.productId = productId;
             this.name = name;
             this.price = price;
