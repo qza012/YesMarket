@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /***
- * componentModel = "spring" : maaper를 bean으로 등록하기 위함.
+ * componentModel = "spring" : mapper를 bean으로 등록하기 위함.
  */
 
 @Mapper(componentModel = "spring")
