@@ -2,6 +2,7 @@ package com.study.yesmarket.member.dto;
 
 import com.study.yesmarket.member.domain.Member;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class MemberDto {
 
     @Getter
+    @EqualsAndHashCode
     public static class JoinRequest {
 
         @NotBlank(message = "아이디를 입력해주세요")
@@ -47,6 +49,7 @@ public class MemberDto {
     }
 
     @Getter
+    @EqualsAndHashCode
     public static class DuplicateNicknameResponse {
 
         private boolean duplicate;
@@ -58,6 +61,7 @@ public class MemberDto {
     }
 
     @Getter
+    @EqualsAndHashCode
     public static class DuplicateIdResponse {
 
         private boolean duplicate;
