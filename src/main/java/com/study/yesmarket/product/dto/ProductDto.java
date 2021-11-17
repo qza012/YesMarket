@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 public class ProductDto {
 
     @Getter
-    public static class RegistRequest {
+    public static class RegisterRequest {
 
         @NotBlank(message = "상품 이름을 입력해주세요")
         private String name;
@@ -21,7 +21,7 @@ public class ProductDto {
         private int stock;
 
         @Builder
-        public RegistRequest(String name, int price, int stock) {
+        public RegisterRequest(String name, int price, int stock) {
             this.name = name;
             this.price = price;
             this.stock = stock;
@@ -29,7 +29,7 @@ public class ProductDto {
     }
 
     @Getter
-    public static class RegistResponse {
+    public static class RegisterResponse {
 
         private int productId;
         private String name;
@@ -37,7 +37,7 @@ public class ProductDto {
         private int stock;
 
         @Builder
-        public RegistResponse(int productId, String name, int price, int stock) {
+        public RegisterResponse(int productId, String name, int price, int stock) {
             this.productId = productId;
             this.name = name;
             this.price = price;

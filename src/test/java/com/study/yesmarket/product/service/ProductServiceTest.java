@@ -3,8 +3,8 @@ package com.study.yesmarket.product.service;
 import com.study.yesmarket.product.domain.Product;
 import com.study.yesmarket.product.domain.ProductRepository;
 import com.study.yesmarket.product.dto.ProductDto.GetProductResponse;
-import com.study.yesmarket.product.dto.ProductDto.RegistRequest;
-import com.study.yesmarket.product.dto.ProductDto.RegistResponse;
+import com.study.yesmarket.product.dto.ProductDto.RegisterRequest;
+import com.study.yesmarket.product.dto.ProductDto.RegisterResponse;
 import com.study.yesmarket.product.dto.ProductDto.UpdateProductRequest;
 import com.study.yesmarket.product.exception.NotFindProductException;
 import com.study.yesmarket.product.mapper.ProductMapper;
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
@@ -41,30 +40,30 @@ class ProductServiceTest {
     @Test
     void registProduct() {
         // given
-        RegistRequest registRequest = RegistRequest.builder()
+        RegisterRequest registerRequest = RegisterRequest.builder()
                 .name("테스트 상품")
                 .price(1000)
                 .stock(10)
                 .build();
 
-        Product product = ProductMapper.INSTANCE.registRequestToEntity(registRequest);
-        RegistResponse registResponse = ProductMapper.INSTANCE.productToRegistResponse(product);
+        Product product = ProductMapper.INSTANCE.registerRequestToEntity(registerRequest);
+        RegisterResponse registerResponse = ProductMapper.INSTANCE.productToRegisterResponse(product);
 
-        given(productMapper.registRequestToEntity(registRequest)).willReturn(product);
+        given(productMapper.registerRequestToEntity(registerRequest)).willReturn(product);
         given(productRepository.save(product)).willReturn(product);
-        given(productMapper.productToRegistResponse(product)).willReturn(registResponse);
+        given(productMapper.productToRegisterResponse(product)).willReturn(registerResponse);
 
         // when
-        RegistResponse actual = productService.registProduct(registRequest);
+        RegisterResponse actual = productService.registerProduct(registerRequest);
 
         // then
-        assertThat(actual.getName()).isEqualTo(registResponse.getName());
-        assertThat(actual.getPrice()).isEqualTo(registResponse.getPrice());
-        assertThat(actual.getStock()).isEqualTo(registResponse.getStock());
+        assertThat(actual.getName()).isEqualTo(registerResponse.getName());
+        assertThat(actual.getPrice()).isEqualTo(registerResponse.getPrice());
+        assertThat(actual.getStock()).isEqualTo(registerResponse.getStock());
 
-        verify(productMapper, times(1)).registRequestToEntity(registRequest);
+        verify(productMapper, times(1)).registerRequestToEntity(registerRequest);
         verify(productRepository, times(1)).save(product);
-        verify(productMapper, times(1)).productToRegistResponse(product);
+        verify(productMapper, times(1)).productToRegisterResponse(product);
     }
 
     @DisplayName("상품을 가져올 때")

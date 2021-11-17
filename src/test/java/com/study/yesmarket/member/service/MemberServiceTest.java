@@ -3,9 +3,9 @@ package com.study.yesmarket.member.service;
 import com.study.yesmarket.common.service.encript.EncryptService;
 import com.study.yesmarket.member.domain.Member;
 import com.study.yesmarket.member.domain.MemberRepository;
-import com.study.yesmarket.member.dto.MemberDto;
 import com.study.yesmarket.member.dto.MemberDto.DuplicateIdResponse;
 import com.study.yesmarket.member.dto.MemberDto.DuplicateNicknameResponse;
+import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
 import com.study.yesmarket.member.exception.DuplicateIdException;
 import com.study.yesmarket.member.exception.DuplicateNicknameException;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,11 +35,11 @@ public class MemberServiceTest {
     @InjectMocks
     private MemberService memberService;
 
-    private MemberDto.JoinRequest memberJoinRequest;
+    private JoinRequest memberJoinRequest;
 
     @BeforeEach
     public void createMember() {
-        memberJoinRequest = MemberDto.JoinRequest.builder()
+        memberJoinRequest = JoinRequest.builder()
                 .id("testId")
                 .password("testPw")
                 .phoneNumber("010-1234-5678")
