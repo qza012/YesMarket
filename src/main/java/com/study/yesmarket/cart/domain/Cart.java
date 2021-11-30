@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -25,12 +26,13 @@ public class Cart extends BaseEntity {
     private Member member;
 
     @ManyToMany
-    @JoinTable(name = "cart_product")
+    @JoinTable(name = "CART_PRODUCT")
     private Set<Product> products;
 
     @Builder
     public Cart(int cartId) {
         this.cartId = cartId;
+        this.products = new HashSet<>();
     }
 
     public void addProduct(Product product) {
