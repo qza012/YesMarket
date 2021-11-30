@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public enum ProductErrorCode implements BusinessErrorCode {
 
-    NotFindProduct(HttpStatus.NO_CONTENT, "등록된 상품 정보가 없습니다.")
+    NotFindProduct(HttpStatus.BAD_REQUEST, "등록된 상품 정보가 없습니다.")
     ;
 
     private HttpStatus status;
