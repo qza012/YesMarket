@@ -24,11 +24,11 @@ public class MemberService {
 
     @Transactional
     public void join(JoinRequest joinRequest) {
-        if (checkDuplicateNickname(joinRequest.getId())) {
+        if (checkDuplicateId(joinRequest.getId())) {
             throw new DuplicateIdException();
         }
 
-        if (checkDuplicateId(joinRequest.getNickname())) {
+        if (checkDuplicateNickname(joinRequest.getNickname())) {
             throw new DuplicateNicknameException();
         }
 
