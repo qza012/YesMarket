@@ -1,28 +1,27 @@
-package com.study.yesmarket.product.exception;
+package com.study.yesmarket.cart.exception;
 
 import com.study.yesmarket.common.exception.errorcode.BusinessErrorCode;
 import org.springframework.http.HttpStatus;
 
-public enum ProductErrorCode implements BusinessErrorCode {
+public enum CartErrorCode implements BusinessErrorCode {
 
-    NotFindProduct(HttpStatus.BAD_REQUEST, "등록된 상품 정보가 없습니다.")
-    ;
+    NotFind_Cart(HttpStatus.BAD_REQUEST, "해당 유저의 장바구니가 존재하지 않습니다.");
 
     private HttpStatus status;
     private String message;
 
-    ProductErrorCode(HttpStatus status, String message) {
+    CartErrorCode(HttpStatus status, String message) {
         this.status = status;
         this.message = message;
     }
 
     @Override
     public HttpStatus getStatus() {
-        return status;
+        return this.status;
     }
 
     @Override
     public String getMessage() {
-        return message;
+        return this.message;
     }
 }

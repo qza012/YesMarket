@@ -1,5 +1,6 @@
 package com.study.yesmarket.product.domain;
 
+import com.study.yesmarket.cart.domain.Cart;
 import com.study.yesmarket.common.domain.BaseEntity;
 import com.study.yesmarket.product.dto.ProductDto.UpdateProductRequest;
 import lombok.AccessLevel;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,13 +27,16 @@ public class Product extends BaseEntity {
      */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int productId;
+    private Integer productId;
 
     private String name;
 
-    private int price;
+    private Integer price;
 
-    private int stock;
+    private Integer stock;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<Cart> carts;
 
     @Builder
     public Product(int productId, String name, int price, int stock) {

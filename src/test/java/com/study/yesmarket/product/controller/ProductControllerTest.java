@@ -104,7 +104,7 @@ class ProductControllerTest {
         given(productService.updateProduct(productId, request)).willReturn(response);
 
         // when
-        ResultActions perform = mockMvc.perform(patch("/products/{productId}", productId)
+        ResultActions perform = mockMvc.perform(put("/products/{productId}", productId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(request)));
 

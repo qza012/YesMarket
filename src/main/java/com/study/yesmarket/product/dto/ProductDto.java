@@ -21,7 +21,7 @@ public class ProductDto {
         private Integer price;
 
         @NotNull(message = "상품 수량을 입력해주세요")
-        @Min(value = 0, message = "최소 수량은 0입니다.")
+        @Min(value = 0, message = "입력 가능 최소 수량은 0입니다.")
         private Integer stock;
 
         @Builder

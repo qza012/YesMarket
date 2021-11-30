@@ -24,11 +24,11 @@ public class MemberService {
 
     @Transactional
     public void join(JoinRequest joinRequest) {
-        if (this.isDuplicateId(joinRequest.getId()).isDuplicate()) {
+        if (checkDuplicateId(joinRequest.getId())) {
             throw new DuplicateIdException();
         }
 
-        if (this.isDuplicateNickname(joinRequest.getNickname()).isDuplicate()) {
+        if (checkDuplicateNickname(joinRequest.getNickname())) {
             throw new DuplicateNicknameException();
         }
 
@@ -39,11 +39,19 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public DuplicateNicknameResponse isDuplicateNickname(String nickname) {
-        return new DuplicateNicknameResponse(memberRepository.existsByNickname(nickname));
+        return new DuplicateNicknameResponse(checkDuplicateNickname(nickname));
     }
 
     @Transactional(readOnly = true)
     public DuplicateIdResponse isDuplicateId(String id) {
-        return new DuplicateIdResponse(memberRepository.existsById(id));
+        return new DuplicateIdResponse(checkDuplicateId(id));
+    }
+
+    private boolean checkDuplicateNickname(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
+
+    private boolean checkDuplicateId(String id) {
+        return memberRepository.existsById(id);
     }
 }
