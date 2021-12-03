@@ -1,11 +1,11 @@
-package com.study.yesmarket.login.service;
+package com.study.yesmarket.member.service;
 
 import com.study.yesmarket.common.service.encript.EncryptService;
 import com.study.yesmarket.login.domain.LoginUserInfo;
 import com.study.yesmarket.login.domain.SessionLoginRepository;
 import com.study.yesmarket.login.dto.LoginDto.LoginRequest;
-import com.study.yesmarket.login.exception.NotMatchedIdException;
-import com.study.yesmarket.login.exception.NotMatchedPasswordException;
+import com.study.yesmarket.member.exception.NotMatchedIdException;
+import com.study.yesmarket.member.exception.NotMatchedPasswordException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
