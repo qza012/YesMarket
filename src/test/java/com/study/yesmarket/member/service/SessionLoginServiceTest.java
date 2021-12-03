@@ -1,11 +1,11 @@
-package com.study.yesmarket.login.service;
+package com.study.yesmarket.member.service;
 
 import com.study.yesmarket.common.service.encript.EncryptService;
-import com.study.yesmarket.login.domain.LoginUserInfo;
-import com.study.yesmarket.login.domain.SessionLoginRepository;
-import com.study.yesmarket.login.dto.LoginDto.LoginRequest;
-import com.study.yesmarket.login.exception.NotMatchedIdException;
-import com.study.yesmarket.login.exception.NotMatchedPasswordException;
+import com.study.yesmarket.member.domain.Member;
+import com.study.yesmarket.member.domain.MemberRepository;
+import com.study.yesmarket.member.dto.MemberDto.LoginRequest;
+import com.study.yesmarket.member.exception.NotMatchedIdException;
+import com.study.yesmarket.member.exception.NotMatchedPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class SessionLoginServiceTest {
     private EncryptService encryptService;
 
     @Mock
-    private SessionLoginRepository sessionLoginRepository;
+    private MemberRepository memberRepository;
 
     @Mock
     private HttpSession httpSession;
@@ -50,22 +50,22 @@ class SessionLoginServiceTest {
     @Test
     void login() {
         // given
-        LoginUserInfo dbUserInfo = LoginUserInfo.builder()
-                .id(loginRequest.getId())
+        Member dbMember = Member.builder()
+                .memberId(loginRequest.getId())
                 .password(loginRequest.getPassword())
                 .build();
 
-        given(sessionLoginRepository.findById(loginRequest.getId()))
-                .willReturn(Optional.ofNullable(dbUserInfo));
-        given(encryptService.isMatch(loginRequest.getPassword(), dbUserInfo.getPassword()))
+        given(memberRepository.findById(loginRequest.getId()))
+                .willReturn(Optional.ofNullable(dbMember));
+        given(encryptService.isMatch(loginRequest.getPassword(), dbMember.getPassword()))
                 .willReturn(true);
 
         // when
         sessionLoginService.login(loginRequest);
 
         // then
-        verify(sessionLoginRepository, times(1)).findById(loginRequest.getId());
-        verify(encryptService, times(1)).isMatch(loginRequest.getPassword(), dbUserInfo.getPassword());
+        verify(memberRepository, times(1)).findById(loginRequest.getId());
+        verify(encryptService, times(1)).isMatch(loginRequest.getPassword(), dbMember.getPassword());
         verify(httpSession, times(1)).setAttribute(SessionLoginService.LOGIN_ID, loginRequest.getId());
     }
 
@@ -73,13 +73,13 @@ class SessionLoginServiceTest {
     @Test
     void login_With_Not_Exist_Id() {
         // given
-        given(sessionLoginRepository.findById(loginRequest.getId()))
+        given(memberRepository.findById(loginRequest.getId()))
                 .willReturn(Optional.empty());
 
         // when-then
         assertThrows(NotMatchedIdException.class, () -> sessionLoginService.login(loginRequest));
 
-        verify(sessionLoginRepository, times(1)).findById(loginRequest.getId());
+        verify(memberRepository, times(1)).findById(loginRequest.getId());
         verify(httpSession, never()).setAttribute(SessionLoginService.LOGIN_ID, loginRequest.getId());
     }
 
@@ -87,21 +87,21 @@ class SessionLoginServiceTest {
     @Test
     void login_With_Illegal_Password() {
         // given
-        LoginUserInfo dbUserInfo = LoginUserInfo.builder()
-                .id(loginRequest.getId())
+        Member dbMember = Member.builder()
+                .memberId(loginRequest.getId())
                 .password("mockPassword")
                 .build();
 
-        given(sessionLoginRepository.findById(loginRequest.getId()))
-                .willReturn(Optional.of(dbUserInfo));
-        given(encryptService.isMatch(loginRequest.getPassword(), dbUserInfo.getPassword()))
+        given(memberRepository.findById(loginRequest.getId()))
+                .willReturn(Optional.of(dbMember));
+        given(encryptService.isMatch(loginRequest.getPassword(), dbMember.getPassword()))
                 .willReturn(false);
 
         // when-then
         assertThrows(NotMatchedPasswordException.class, () -> sessionLoginService.login(loginRequest));
 
-        verify(sessionLoginRepository, times(1)).findById(loginRequest.getId());
-        verify(encryptService, times(1)).isMatch(loginRequest.getPassword(), dbUserInfo.getPassword());
+        verify(memberRepository, times(1)).findById(loginRequest.getId());
+        verify(encryptService, times(1)).isMatch(loginRequest.getPassword(), dbMember.getPassword());
         verify(httpSession, never()).setAttribute(SessionLoginService.LOGIN_ID, loginRequest.getId());
     }
 
