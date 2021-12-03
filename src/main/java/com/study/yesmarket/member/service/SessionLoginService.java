@@ -1,11 +1,11 @@
-package com.study.yesmarket.login.service;
+package com.study.yesmarket.member.service;
 
 import com.study.yesmarket.common.service.encript.EncryptService;
-import com.study.yesmarket.login.domain.LoginUserInfo;
-import com.study.yesmarket.login.domain.SessionLoginRepository;
-import com.study.yesmarket.login.dto.LoginDto.LoginRequest;
-import com.study.yesmarket.login.exception.NotMatchedIdException;
-import com.study.yesmarket.login.exception.NotMatchedPasswordException;
+import com.study.yesmarket.member.domain.Member;
+import com.study.yesmarket.member.domain.MemberRepository;
+import com.study.yesmarket.member.dto.MemberDto.LoginRequest;
+import com.study.yesmarket.member.exception.NotMatchedIdException;
+import com.study.yesmarket.member.exception.NotMatchedPasswordException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,17 +22,17 @@ public class SessionLoginService implements LoginService{
     @Qualifier("BCrypt")
     private final EncryptService encryptService;
 
-    private final SessionLoginRepository sessionLoginRepository;
+    private final MemberRepository memberRepository;
 
     private final HttpSession httpSession;
 
     @Override
     @Transactional(readOnly = true)
     public void login(LoginRequest loginRequest) {
-        LoginUserInfo loginUserInfo = sessionLoginRepository.findById(loginRequest.getId())
+        Member member = memberRepository.findById(loginRequest.getId())
                 .orElseThrow(NotMatchedIdException::new);
 
-        if (!encryptService.isMatch(loginRequest.getPassword(), loginUserInfo.getPassword())) {
+        if (!encryptService.isMatch(loginRequest.getPassword(), member.getPassword())) {
             throw new NotMatchedPasswordException();
         }
 
