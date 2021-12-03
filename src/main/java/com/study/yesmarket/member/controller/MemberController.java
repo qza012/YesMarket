@@ -1,10 +1,10 @@
 package com.study.yesmarket.member.controller;
 
-import com.study.yesmarket.login.dto.LoginDto;
-import com.study.yesmarket.member.service.LoginService;
 import com.study.yesmarket.member.dto.MemberDto.DuplicateIdResponse;
 import com.study.yesmarket.member.dto.MemberDto.DuplicateNicknameResponse;
 import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
+import com.study.yesmarket.member.dto.MemberDto.LoginRequest;
+import com.study.yesmarket.member.service.LoginService;
 import com.study.yesmarket.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,7 +40,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public void login(@Valid @RequestBody LoginDto.LoginRequest loginRequest) {
+    public void login(@Valid @RequestBody LoginRequest loginRequest) {
         loginService.login(loginRequest);
     }
 

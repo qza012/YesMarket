@@ -1,6 +1,6 @@
 package com.study.yesmarket.member.service;
 
-import com.study.yesmarket.login.dto.LoginDto.LoginRequest;
+import com.study.yesmarket.member.dto.MemberDto.LoginRequest;
 import org.springframework.stereotype.Service;
 
 @Service
