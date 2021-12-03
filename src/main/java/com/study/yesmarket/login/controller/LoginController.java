@@ -1,7 +1,7 @@
 package com.study.yesmarket.login.controller;
 
 import com.study.yesmarket.login.dto.LoginDto.LoginRequest;
-import com.study.yesmarket.login.service.LoginService;
+import com.study.yesmarket.member.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
