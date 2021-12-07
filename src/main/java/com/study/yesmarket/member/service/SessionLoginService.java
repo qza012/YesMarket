@@ -17,8 +17,6 @@ import javax.servlet.http.HttpSession;
 @Service("sessionLogin")
 public class SessionLoginService implements LoginService{
 
-    static final String LOGIN_ID = "LoginId";
-
     @Qualifier("BCrypt")
     private final EncryptService encryptService;
 
