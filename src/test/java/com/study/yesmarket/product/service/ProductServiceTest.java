@@ -101,7 +101,7 @@ class ProductServiceTest {
             verify(productMapper, times(1)).productToGetProductResponse(product);
         }
 
-        @DisplayName("요청한 상품이 존재하지 않는다면, 'NotFindProductException' 에러가 발생한다.")
+        @DisplayName("요청한 상품이 존재하지 않는다면, 'NotFindProductException' 예외가 발생한다.")
         @Test
         void notFindProduct() {
             // given
@@ -157,7 +157,7 @@ class ProductServiceTest {
             verify(productMapper, times(1)).productToUpdateProductResponse(product);
         }
 
-        @DisplayName("요청한 상품이 존재하지 않는다면, 'NotFindProductException' 에러가 발생한다.")
+        @DisplayName("요청한 상품이 존재하지 않는다면, 'NotFindProductException' 예외가 발생한다.")
         @Test
         void notFindProduct() {
             // given
