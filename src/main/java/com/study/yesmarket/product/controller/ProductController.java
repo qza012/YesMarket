@@ -1,5 +1,6 @@
 package com.study.yesmarket.product.controller;
 
+import com.study.yesmarket.common.interceptor.ForLoginMember;
 import com.study.yesmarket.product.dto.ProductDto.GetProductResponse;
 import com.study.yesmarket.product.dto.ProductDto.RegisterRequest;
 import com.study.yesmarket.product.dto.ProductDto.UpdateProductRequest;
@@ -19,6 +20,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @ForLoginMember
     @PostMapping
     public ResponseEntity<Void> registerProduct(@Valid @RequestBody RegisterRequest registerRequest) {
         productService.registerProduct(registerRequest);
@@ -30,12 +32,14 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProduct(productId));
     }
 
+    @ForLoginMember
     @PutMapping("/{productId}")
     public ResponseEntity<UpdateProductResponse> updateProduct(@PathVariable int productId
             , @Valid @RequestBody UpdateProductRequest updateProductRequest) {
         return ResponseEntity.ok(productService.updateProduct(productId, updateProductRequest));
     }
 
+    @ForLoginMember
     @DeleteMapping("/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable int productId) {
         productService.deleteProduct(productId);
