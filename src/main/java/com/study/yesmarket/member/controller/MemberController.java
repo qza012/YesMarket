@@ -40,12 +40,14 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public void login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest) {
         loginService.login(loginRequest);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/logout")
-    public void logout() {
+    public ResponseEntity<Void> logout() {
         loginService.logout();
+        return ResponseEntity.ok().build();
     }
 }
