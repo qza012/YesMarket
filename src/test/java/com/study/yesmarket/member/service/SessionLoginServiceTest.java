@@ -69,7 +69,7 @@ class SessionLoginServiceTest {
         verify(httpSession, times(1)).setAttribute(SessionLoginService.LOGIN_ID, loginRequest.getId());
     }
 
-    @DisplayName("아이디가 존재하지 않는다면, 'NotMatchedIdException' 에러가 발생한다.")
+    @DisplayName("아이디가 존재하지 않는다면, 'NotMatchedIdException' 예외가 발생한다.")
     @Test
     void login_With_Not_Exist_Id() {
         // given
@@ -83,7 +83,7 @@ class SessionLoginServiceTest {
         verify(httpSession, never()).setAttribute(SessionLoginService.LOGIN_ID, loginRequest.getId());
     }
 
-    @DisplayName("아이디는 일치하지만 비밀번호가 틀렸다면, 'NotMatchedPasswordException' 에러가 발생한다 ")
+    @DisplayName("아이디는 일치하지만 비밀번호가 틀렸다면, 'NotMatchedPasswordException' 예외가 발생한다 ")
     @Test
     void login_With_Illegal_Password() {
         // given

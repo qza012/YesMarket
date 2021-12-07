@@ -144,7 +144,7 @@ class ProductControllerTest {
     @Nested
     class NotLogin {
 
-        @DisplayName("상품 등록에 실패한다.")
+        @DisplayName("상품을 등록하면, 'UnAuthorizationExceptioon' 예외가 발생한다.")
         @Test
         void registerProduct() throws Exception {
             // given
@@ -190,7 +190,7 @@ class ProductControllerTest {
             verify(productService, times(1)).getProduct(productId);
         }
 
-        @DisplayName("상품 정보 업데이트에 실패한다.")
+        @DisplayName("상품 정보를 업데이트하면, 'UnAuthorizationExceptioon' 예외가 발생한다.")
         @Test
         void updateProduct() throws Exception {
             // given
@@ -220,7 +220,7 @@ class ProductControllerTest {
             verify(productService, never()).updateProduct(productId, request);
         }
 
-        @DisplayName("상품 삭제에 실패한다.")
+        @DisplayName("상품을 삭제하면, 'UnAuthorizationExceptioon' 예외가 발생한다.")
         @Test
         void deleteProduct() throws Exception {
             // given
