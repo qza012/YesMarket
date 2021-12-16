@@ -8,3 +8,4 @@ intellij
 mysql 8.0
 jenkins
 redis
+ㅁㅁ
