@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Check Out') {
+            steps {
+                checkout scm
+                echo 'Success : Git Check Out'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat './gradlew clean build'
+                echo 'Success : build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat './gradlew test'
+                echo 'Success : test'
+            }
+        }
+
+        stage('Docker build') {
+            steps {
+                bat 'docker build -t qza012/yesmarket .'
+                echo 'Success : Docker build'
+            }
+        }
+
+        stage('Docker push') {
+            steps {
+                bat 'docker push latest'
+                bat 'docker rmi qza012/yesmarket'
+                echo 'Success : Docker push and rmi'
+            }
+        }
+
+        stage('Docker Deploy') {
+            steps {
+                bat 'ssh -i C:/pw.pem ubuntu@3.37.232.180 -p 22'
+                echo 'Success : ec2 server Connections'
+                bat 'docker-compose up'
+            }
+        }
+    }
+}
