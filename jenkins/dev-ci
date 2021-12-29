@@ -9,17 +9,11 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build And Test') {
             steps {
-                bat './gradlew clean build'
-                echo 'Success : build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat './gradlew test'
-                echo 'Success : test'
+                sh 'chmod +x gradlew'
+                sh './gradlew clean build'
+                echo 'Success : build and test'
             }
         }
     }

@@ -9,40 +9,35 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build And Test') {
             steps {
-                bat './gradlew clean build'
-                echo 'Success : build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat './gradlew test'
-                echo 'Success : test'
+                sh 'chmod +x gradlew'
+                sh './gradlew clean build'
+                echo 'Success : build and test'
             }
         }
 
         stage('Docker build') {
             steps {
-                bat 'docker build -t qza012/yesmarket .'
+                sh "docker login -u ${env.docker_id} -p ${env.docker_pw}"
+                sh 'docker build -t qza012/yesmarket .'
                 echo 'Success : Docker build'
             }
         }
 
         stage('Docker push') {
             steps {
-                bat 'docker push latest'
-                bat 'docker rmi qza012/yesmarket'
+                sh 'docker push qza012/yesmarket'
+                sh 'docker rmi qza012/yesmarket'
                 echo 'Success : Docker push and rmi'
             }
         }
 
         stage('Docker Deploy') {
             steps {
-                bat 'ssh -i C:/pw.pem ubuntu@3.37.232.180 -p 22'
+                sh "echo ${env.server_pw} | su qza012"
+                sh 'ssh -i /home/qza012/pw.pem -o StrictHostKeyChecking=no ubuntu@3.37.232.180 -p 22 ./deploy.sh'
                 echo 'Success : ec2 server Connections'
-                bat 'docker-compose up'
             }
         }
     }
