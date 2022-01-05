@@ -4,6 +4,7 @@ package com.study.yesmarket.member.domain;
 import com.study.yesmarket.cart.domain.Cart;
 import com.study.yesmarket.common.domain.BaseEntity;
 import com.study.yesmarket.member.dto.MemberDto.JoinRequest;
+import com.study.yesmarket.order.domain.Order;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class Member extends BaseEntity {
 
     @OneToOne(mappedBy = "member")
     private Cart cart;
+
+    @OneToOne(mappedBy = "member")
+    private Order order;
 
     @Builder
     public Member(String memberId, String password, String phoneNumber, String email, String nickname) {
