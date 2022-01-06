@@ -25,7 +25,7 @@ public class ProductDto {
         private Integer stock;
 
         @Builder
-        public RegisterRequest(String name, int price, int stock) {
+        public RegisterRequest(String name, Integer price, Integer stock) {
             this.name = name;
             this.price = price;
             this.stock = stock;

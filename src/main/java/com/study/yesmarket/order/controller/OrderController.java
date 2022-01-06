@@ -1,7 +1,7 @@
 package com.study.yesmarket.order.controller;
 
 import com.study.yesmarket.common.interceptor.ForLoginMember;
-import com.study.yesmarket.order.controller.dto.OrderDto.RegisterRequest;
+import com.study.yesmarket.order.dto.OrderDto.RegisterRequest;
 import com.study.yesmarket.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
