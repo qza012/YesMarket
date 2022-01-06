@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,8 +35,9 @@ public class Member extends BaseEntity {
     @OneToOne(mappedBy = "member")
     private Cart cart;
 
-    @OneToOne(mappedBy = "member")
-    private Order order;
+    // CascadeType.All : 부모가 지워질 때, 자식도 같이 지워져야 함.
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<Order> orders;
 
     @Builder
     public Member(String memberId, String password, String phoneNumber, String email, String nickname) {

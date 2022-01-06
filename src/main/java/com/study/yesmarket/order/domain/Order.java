@@ -20,17 +20,21 @@ public class Order extends BaseEntity {
     @Id
     private Integer ordersId;
 
-    @OneToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID", nullable = false)
     private Member member;
 
     @OneToOne
-    @JoinColumn(name = "PRODUCT_ID")
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
+    private Integer productCount;
+
     @Builder
-    public Order(Integer ordersId, Member member) {
+    public Order(Integer ordersId, Member member, Product product, int productCount) {
         this.ordersId = ordersId;
         this.member = member;
+        this.product = product;
+        this.productCount = productCount;
     }
 }
