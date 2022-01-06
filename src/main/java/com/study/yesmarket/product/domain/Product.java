@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -37,17 +38,18 @@ public class Product extends BaseEntity {
     private Integer stock;
 
     @ManyToMany(mappedBy = "products")
-    private Set<Cart> carts;
+    private Set<Cart> carts = new HashSet<>();
 
     @OneToOne(mappedBy = "product")
     private Order order;
 
     @Builder
-    public Product(int productId, String name, int price, int stock) {
+    public Product(int productId, String name, int price, int stock, Order order) {
         this.productId = productId;
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.order = order;
     }
 
     public void update(UpdateProductRequest updateProductRequest) {

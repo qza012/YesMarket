@@ -27,12 +27,11 @@ public class Cart extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "CART_PRODUCT")
-    private Set<Product> products;
+    private Set<Product> products = new HashSet<>();
 
     @Builder
     public Cart(int cartId) {
         this.cartId = cartId;
-        this.products = new HashSet<>();
     }
 
     public void addProduct(Product product) {

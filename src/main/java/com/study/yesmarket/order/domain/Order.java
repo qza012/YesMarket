@@ -18,7 +18,8 @@ public class Order extends BaseEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer ordersId;
+    @Column(name = "ORDERS_ID")
+    private Integer orderId;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID", nullable = false)
@@ -31,8 +32,8 @@ public class Order extends BaseEntity {
     private Integer productCount;
 
     @Builder
-    public Order(Integer ordersId, Member member, Product product, int productCount) {
-        this.ordersId = ordersId;
+    public Order(Integer orderId, Member member, Product product, int productCount) {
+        this.orderId = orderId;
         this.member = member;
         this.product = product;
         this.productCount = productCount;
