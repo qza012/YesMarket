@@ -25,7 +25,7 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID", nullable = false)
     private Member member;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
