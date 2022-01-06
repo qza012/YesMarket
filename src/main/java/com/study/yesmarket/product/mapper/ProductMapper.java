@@ -18,7 +18,7 @@ public interface ProductMapper {
 
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
-    @Mapping(target = "order", ignore = true)
+    @Mapping(target = "category", ignore = true)
     @Mapping(target = "productId", ignore = true)
     Product registerRequestToEntity(RegisterRequest registerRequest);
 

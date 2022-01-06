@@ -60,4 +60,8 @@ public class Product extends BaseEntity {
         this.price = updateProductRequest.getPrice();
         this.stock = updateProductRequest.getStock();
     }
+
+    public void updateCategory(Category category) {
+        this.category = category;
+    }
 }

@@ -24,11 +24,15 @@ public class ProductDto {
         @Min(value = 0, message = "입력 가능 최소 수량은 0입니다.")
         private Integer stock;
 
+        @NotNull(message = "분류 코드를 입력해주세요.")
+        private String categoryCode;
+
         @Builder
-        public RegisterRequest(String name, Integer price, Integer stock) {
+        public RegisterRequest(String name, Integer price, Integer stock, String categoryCode) {
             this.name = name;
             this.price = price;
             this.stock = stock;
+            this.categoryCode = categoryCode;
         }
     }
 
@@ -75,12 +79,14 @@ public class ProductDto {
         private String name;
         private int price;
         private int stock;
+        private String categoryCode;
 
         @Builder
-        public UpdateProductRequest(String name, int price, int stock) {
+        public UpdateProductRequest(String name, int price, int stock, String categoryCode) {
             this.name = name;
             this.price = price;
             this.stock = stock;
+            this.categoryCode = categoryCode;
         }
     }
 
