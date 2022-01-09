@@ -40,21 +40,28 @@ public class Product extends BaseEntity {
     @ManyToMany(mappedBy = "products")
     private Set<Cart> carts = new HashSet<>();
 
-    @OneToOne(mappedBy = "product")
-    private Order order;
+    @OneToMany(mappedBy = "product")
+    private Set<Order> orders = new HashSet<>();
+
+    @ManyToOne
+    private Category category;
 
     @Builder
-    public Product(int productId, String name, int price, int stock, Order order) {
+    public Product(int productId, String name, int price, int stock, Category category) {
         this.productId = productId;
         this.name = name;
         this.price = price;
         this.stock = stock;
-        this.order = order;
+        this.category = category;
     }
 
     public void update(UpdateProductRequest updateProductRequest) {
         this.name = updateProductRequest.getName();
         this.price = updateProductRequest.getPrice();
         this.stock = updateProductRequest.getStock();
+    }
+
+    public void updateCategory(Category category) {
+        this.category = category;
     }
 }

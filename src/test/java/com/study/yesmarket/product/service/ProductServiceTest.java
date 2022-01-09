@@ -1,5 +1,7 @@
 package com.study.yesmarket.product.service;
 
+import com.study.yesmarket.product.domain.Category;
+import com.study.yesmarket.product.domain.CategoryRepository;
 import com.study.yesmarket.product.domain.Product;
 import com.study.yesmarket.product.domain.ProductRepository;
 import com.study.yesmarket.product.dto.ProductDto.GetProductResponse;
@@ -31,6 +33,9 @@ class ProductServiceTest {
     private ProductRepository productRepository;
 
     @Mock
+    private CategoryRepository categoryRepository;
+
+    @Mock
     private ProductMapper productMapper;
 
     @InjectMocks
@@ -44,12 +49,26 @@ class ProductServiceTest {
                 .name("테스트 상품")
                 .price(1000)
                 .stock(10)
+                .categoryCode("A111")
                 .build();
 
-        Product product = ProductMapper.INSTANCE.registerRequestToEntity(registerRequest);
+        Category category = Category.builder()
+                .categoryCode(registerRequest.getCategoryCode())
+                .name("테스트")
+                .build();
+
+        Product product = Product.builder()
+                .name(registerRequest.getName())
+                .productId(13)
+                .stock(registerRequest.getStock())
+                .price(registerRequest.getPrice())
+                .category(category)
+                .build();
+
         RegisterResponse registerResponse = ProductMapper.INSTANCE.productToRegisterResponse(product);
 
         given(productMapper.registerRequestToEntity(registerRequest)).willReturn(product);
+        given(categoryRepository.findById(registerRequest.getCategoryCode())).willReturn(Optional.ofNullable(category));
         given(productRepository.save(product)).willReturn(product);
         given(productMapper.productToRegisterResponse(product)).willReturn(registerResponse);
 
@@ -135,6 +154,11 @@ class ProductServiceTest {
                     .stock(10)
                     .build();
 
+            Category category = Category.builder()
+                    .categoryCode("A111")
+                    .name("테스트 카테고리")
+                    .build();
+
             Product product = Product.builder()
                     .productId(1)
                     .name("기존 상품")
@@ -144,6 +168,8 @@ class ProductServiceTest {
 
             given(productRepository.findById(productId))
                     .willReturn(Optional.ofNullable(product));
+            given(categoryRepository.findById(updateProductRequest.getCategoryCode()))
+                    .willReturn(Optional.ofNullable(category));
 
             // when
             productService.updateProduct(productId, updateProductRequest);
