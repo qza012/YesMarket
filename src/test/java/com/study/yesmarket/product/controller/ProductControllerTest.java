@@ -51,6 +51,7 @@ class ProductControllerTest {
                     .name("테스트 상품")
                     .price(2000)
                     .stock(15)
+                    .categoryCode("C111")
                     .build();
 
             // when
